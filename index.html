@@ -783,24 +783,33 @@ header {
 
     document.getElementById('scanClose').onclick = stopCamera;
   })();
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const searchInput = document.querySelector(".search-box input");
-    if (searchInput) {
-      searchInput.addEventListener("keydown", function(e) {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          const query = searchInput.value.trim();
-          if (query) {.
-            window.location.href = "https://" + "www." + "goo" + "gle." + "com" + "/search?q=" + encodeURIComponent(query);
 
-          }
-        }
-      }, true);
+<script>
+  function goSearch(q) {
+    if (!q) return;
+    const url = "https://" + "www." + "goo" + "gle." + "com" + "/search?q=" + encodeURIComponent(q);
+    window.location.replace(url);
+  }
+
+  document.addEventListener("submit", function(e) {
+    const inp = document.querySelector(".search-box input");
+    if (inp && inp.value.trim()) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      goSearch(inp.value.trim());
     }
-  });
+  }, true);
+
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Enter" || e.keyCode === 13) {
+      const inp = document.querySelector(".search-box input");
+      if (inp && document.activeElement === inp) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        goSearch(inp.value.trim());
+      }
+    }
+  }, true);
 </script>
 
 </body>
