@@ -1,4 +1,4 @@
-76<!DOCTYPE html>
+576<!DOCTYPE html>
 <html lang="uz">
 <head>
   <meta charset="UTF-8" />
@@ -468,26 +468,23 @@
   .scan-file { background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.3); }
   .scan-close { background: #ef4444; color: #fff; }
 </style>
+<script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
 
-<script src="https://jsdelivr.net"></script>
 <script>
-  (function() {
-    const bar = document.querySelector('.stats-bar');
-    if (!bar) return;
+(function() {
+  const bar = document.querySelector('.stats-bar');
+  if (!bar) return;
 
-    let btn = document.querySelector('.qr-btn');
-    if (!btn) {
-      btn = document.createElement('button');
-      btn.className = 'qr-btn';
-      btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>';
-      btn.style.cssText = 'background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.4); color:#38bdf8; width:38px; height:38px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; margin-left:8px;';
-btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>';
-if (bar) bar.appendChild(btn);
+  let btn = document.querySelector('.qr-btn');
+  if (!btn) {
+    btn = document.createElement('button');
+    btn.className = 'qr-btn';
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>';
+    bar.appendChild(btn);
+  }
 
-    }
-
-    const modal = document.createElement('div');
-    modal.className = 'scan-modal';
+  const modal = document.createElement('div');
+  modal.className = 'scan-modal'
     modal.innerHTML = `
       <div class="scan-box">
         <h3>📷 QR-kod skaneri</h3>
