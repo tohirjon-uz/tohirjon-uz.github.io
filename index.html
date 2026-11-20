@@ -1,5 +1,4 @@
-
-      color: <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
   <meta charset="UTF-8" />
@@ -42,7 +41,6 @@
       padding: 0 20px;
     }
 
-    /* Yuqori menyu (Navbar) */
     header {
       display: flex;
       justify-content: space-between;
@@ -71,7 +69,6 @@
       font-size: 14px;
     }
 
-    /* Uch chiziqcha tugma */
     .menu-btn {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -85,9 +82,7 @@
       align-items: center;
       gap: 5px;
       cursor: pointer;
-      transition: 0.2s;
     }
-    .menu-btn:hover { border-color: #38bdf8; }
     .menu-btn span {
       width: 20px;
       height: 2px;
@@ -95,7 +90,6 @@
       border-radius: 2px;
     }
 
-    /* Sozlamalar paneli */
     .overlay {
       position: fixed;
       inset: 0;
@@ -144,7 +138,6 @@
       color: #9ca3af;
       margin-bottom: 10px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -171,11 +164,7 @@
       text-align: left;
       font-size: 14px;
       cursor: pointer;
-      transition: 0.2s;
     }
-    .theme-btn:hover { border-color: #38bdf8; }
-
-    /* Qidiruv tarixi */
     .history-list {
       display: flex;
       flex-direction: column;
@@ -193,16 +182,13 @@
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      border: 1px solid transparent;
     }
-    .history-item:hover { border-color: #38bdf8; }
     .empty-history {
       font-size: 13px;
       color: #6b7280;
       font-style: italic;
     }
 
-    /* Asosiy qism */
     .hero {
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
@@ -214,7 +200,6 @@
       font-size: 42px;
       font-weight: 800;
       line-height: 1.15;
-      letter-spacing: -0.5px;
       margin-bottom: 18px;
       text-transform: uppercase;
     }
@@ -245,7 +230,6 @@
       margin-left: 10px;
     }
 
-    /* Tugmalar */
     .btn-group {
       display: flex;
       gap: 12px;
@@ -261,18 +245,15 @@
       font-weight: 600;
       font-size: 14px;
       text-decoration: none;
-      transition: 0.2s;
       color: #ffffff;
     }
     .social-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
-    .social-btn:hover { transform: translateY(-2px); opacity: 0.92; }
     .btn-gpt { background: #10a37f; }
     .btn-tg { background: #229ED9; }
     .btn-yt { background: #FF0000; }
     .btn-tt { background: #000000; border: 1px solid #25F4EE; box-shadow: -2px 0 0 #25F4EE, 2px 0 0 #FE2C55; }
     .btn-ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
 
-    /* O'zi aylanib turadigan va qo'lda qimirlaydigan 3D Rasm */
     .hero-visual {
       display: flex;
       flex-direction: column;
@@ -280,8 +261,8 @@
       perspective: 1000px;
     }
     .card-3d {
-      width: 290px;
-      height: 290px;
+      width: 280px;
+      height: 280px;
       border-radius: 50%;
       position: relative;
       transform-style: preserve-3d;
@@ -291,7 +272,6 @@
       border: 3px solid var(--glow-color);
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 60px var(--glow-color);
     }
-    .card-3d:active { cursor: grabbing; }
     .card-3d img {
       width: 100%;
       height: 100%;
@@ -304,10 +284,8 @@
       margin-top: 14px;
       font-size: 12px;
       color: var(--subtext-color);
-      opacity: 0.85;
     }
 
-    /* Pastki kartalar */
     .services { padding: 20px 0 70px; }
     .services h2 { font-size: 20px; margin-bottom: 20px; font-weight: 600; }
     .cards-grid {
@@ -320,10 +298,7 @@
       color: #0d1015;
       border-radius: 16px;
       padding: 24px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      transition: transform 0.2s;
     }
-    .service-card:hover { transform: translateY(-4px); }
     .service-card h3 { font-size: 17px; margin-bottom: 8px; }
     .service-card p { font-size: 14px; color: #4b5563; line-height: 1.5; }
 
@@ -340,7 +315,6 @@
 </head>
 <body>
 
-  <!-- Sozlamalar menyusi -->
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
   <aside class="drawer" id="drawer">
     <div class="drawer-header">
@@ -377,3 +351,20 @@
       <button class="menu-btn" onclick="toggleMenu()" aria-label="Menyu">
         <span></span>
         <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h1>KELAJAK RAQAMLI INNOVATSIYALARINI KASHF ETING</h1>
+        <p>Zamonaviy texnologiyalar va kreativ yechimlar bilan raqamli dunyoni yangi bosqichga olib chiqamiz.</p>
+        
+        <form onsubmit="handleSearch(event)" class="search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="searchInput" placeholder="Google'dan qidirish..." required>
+        </form>
+
+        <div class="btn-group">
+          <a href="https://chatgpt.com" target="_blank" class="social-btn btn-gpt">
+
