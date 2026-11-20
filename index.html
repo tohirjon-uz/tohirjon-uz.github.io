@@ -6,309 +6,73 @@
   <title>Tohirjon Usmonov — Shaxsiy Sayt</title>
   <style>
     :root {
-      --bg-color: #0d1015;
-      --text-color: #ffffff;
-      --subtext-color: #9ca3af;
-      --card-bg: #141820;
-      --border-color: rgba(255, 255, 255, 0.08);
-      --glow-color: rgba(56, 189, 248, 0.45);
+      --bg: #0d1015;
+      --text: #ffffff;
+      --sub: #9ca3af;
+      --card: #141820;
+      --border: rgba(255, 255, 255, 0.1);
+      --glow: rgba(56, 189, 248, 0.45);
     }
-    body.blue-theme {
-      --bg-color: #071324;
-      --card-bg: #0e1e36;
-      --glow-color: rgba(96, 165, 250, 0.55);
-    }
-    body.light-theme {
-      --bg-color: #f3f4f6;
-      --text-color: #111827;
-      --subtext-color: #4b5563;
-      --card-bg: #ffffff;
-      --border-color: rgba(0, 0, 0, 0.1);
-      --glow-color: rgba(37, 99, 235, 0.35);
-    }
+    body.blue { --bg: #071324; --card: #0e1e36; --glow: rgba(96, 165, 250, 0.55); }
+    body.light { --bg: #f3f4f6; --text: #111827; --sub: #4b5563; --card: #ffffff; --border: rgba(0, 0, 0, 0.1); --glow: rgba(37, 99, 235, 0.35); }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      min-height: 100vh;
-      overflow-x: hidden;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; transition: 0.3s; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border-color);
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      font-size: 17px;
-      letter-spacing: 0.5px;
-    }
-    .logo-icon {
-      width: 32px;
-      height: 32px;
-      background: var(--text-color);
-      color: var(--bg-color);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      font-size: 14px;
-    }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border); }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; }
+    .logo-icon { width: 32px; height: 32px; background: var(--text); color: var(--bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 13px; }
 
-    .menu-btn {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      color: var(--text-color);
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-      cursor: pointer;
-    }
-    .menu-btn span {
-      width: 20px;
-      height: 2px;
-      background-color: var(--text-color);
-      border-radius: 2px;
-    }
+    .menu-btn { background: var(--card); border: 1px solid var(--border); width: 42px; height: 42px; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; cursor: pointer; }
+    .menu-btn span { width: 20px; height: 2px; background: var(--text); border-radius: 2px; }
 
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      display: none;
-      z-index: 90;
-    }
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; z-index: 90; }
     .overlay.active { display: block; }
-
-    .drawer {
-      position: fixed;
-      top: 0;
-      right: -330px;
-      width: 300px;
-      height: 100vh;
-      background: #141820;
-      color: #ffffff;
-      padding: 24px;
-      z-index: 100;
-      transition: right 0.3s ease;
-      border-left: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-      overflow-y: auto;
-    }
+    .drawer { position: fixed; top: 0; right: -320px; width: 290px; height: 100vh; background: #141820; color: #fff; padding: 22px; z-index: 100; transition: 0.3s; border-left: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
     .drawer.open { right: 0; }
-    .drawer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 14px;
-    }
-    .close-btn {
-      background: none;
-      border: none;
-      color: #9ca3af;
-      font-size: 26px;
-      cursor: pointer;
-      line-height: 1;
-    }
-    .setting-group h4 {
-      font-size: 13px;
-      color: #9ca3af;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .clear-history {
-      background: none;
-      border: none;
-      color: #f87171;
-      font-size: 12px;
-      cursor: pointer;
-      text-transform: none;
-    }
-    .theme-options {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .theme-btn {
-      background: #1f2532;
-      color: #fff;
-      border: 1px solid #2e3646;
-      padding: 10px 14px;
-      border-radius: 10px;
-      text-align: left;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .history-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      max-height: 180px;
-      overflow-y: auto;
-    }
-    .history-item {
-      background: #1f2532;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      color: #e5e7eb;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-    }
-    .empty-history {
-      font-size: 13px;
-      color: #6b7280;
-      font-style: italic;
-    }
+    .drawer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; }
+    .close-btn { background: none; border: none; color: #9ca3af; font-size: 26px; cursor: pointer; }
+    .setting-group h4 { font-size: 12px; color: #9ca3af; margin-bottom: 10px; text-transform: uppercase; display: flex; justify-content: space-between; }
+    .clear-btn { background: none; border: none; color: #f87171; font-size: 12px; cursor: pointer; }
+    .theme-btn { width: 100%; background: #1f2532; color: #fff; border: 1px solid #2e3646; padding: 10px; border-radius: 10px; text-align: left; font-size: 14px; cursor: pointer; margin-bottom: 8px; }
+    .history-item { background: #1f2532; padding: 8px 12px; border-radius: 8px; font-size: 13px; display: flex; justify-content: space-between; cursor: pointer; margin-bottom: 6px; }
 
-    .hero {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      align-items: center;
-      gap: 40px;
-      padding: 50px 0;
-    }
-    .hero h1 {
-      font-size: 42px;
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 18px;
-      text-transform: uppercase;
-    }
-    .hero p {
-      color: var(--subtext-color);
-      font-size: 16px;
-      line-height: 1.6;
-      margin-bottom: 28px;
-      max-width: 480px;
-    }
-    .search-box {
-      display: flex;
-      align-items: center;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 12px 16px;
-      max-width: 440px;
-      margin-bottom: 24px;
-    }
-    .search-box input {
-      background: transparent;
-      border: none;
-      outline: none;
-      color: var(--text-color);
-      width: 100%;
-      font-size: 14px;
-      margin-left: 10px;
-    }
+    .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 40px; padding: 45px 0; }
+    .hero h1 { font-size: 38px; font-weight: 800; line-height: 1.15; margin-bottom: 16px; text-transform: uppercase; }
+    .hero p { color: var(--sub); font-size: 15px; line-height: 1.6; margin-bottom: 24px; max-width: 460px; }
 
-    .btn-group {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      max-width: 500px;
-    }
-    .social-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 14px;
-      text-decoration: none;
-      color: #ffffff;
-    }
-    .social-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .search-box { display: flex; align-items: center; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; max-width: 440px; margin-bottom: 22px; }
+    .search-box input { background: transparent; border: none; outline: none; color: var(--text); width: 100%; font-size: 14px; margin-left: 10px; }
+
+    .btn-group { display: flex; gap: 10px; flex-wrap: wrap; max-width: 480px; }
+    .social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 12px; font-weight: 600; font-size: 14px; text-decoration: none; color: #fff; }
+    .social-btn img { width: 18px; height: 18px; border-radius: 4px; }
     .btn-gpt { background: #10a37f; }
     .btn-tg { background: #229ED9; }
     .btn-yt { background: #FF0000; }
     .btn-tt { background: #000000; border: 1px solid #25F4EE; box-shadow: -2px 0 0 #25F4EE, 2px 0 0 #FE2C55; }
-    .btn-ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+    .btn-ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
 
-    .hero-visual {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      perspective: 1000px;
-    }
-    .card-3d {
-      width: 280px;
-      height: 280px;
-      border-radius: 50%;
-      position: relative;
-      transform-style: preserve-3d;
-      cursor: grab;
-      user-select: none;
-      touch-action: none;
-      border: 3px solid var(--glow-color);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 60px var(--glow-color);
-    }
-    .card-3d img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      display: block;
-      pointer-events: none;
-    }
-    .hint-3d {
-      margin-top: 14px;
-      font-size: 12px;
-      color: var(--subtext-color);
-    }
+    .hero-visual { display: flex; flex-direction: column; align-items: center; perspective: 1000px; }
+    .card-3d { width: 270px; height: 270px; border-radius: 50%; position: relative; transform-style: preserve-3d; cursor: grab; user-select: none; touch-action: none; border: 3px solid var(--glow); box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 60px var(--glow); }
+    .card-3d img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; pointer-events: none; }
+    .hint-3d { margin-top: 12px; font-size: 12px; color: var(--sub); }
 
-    .services { padding: 20px 0 70px; }
-    .services h2 { font-size: 20px; margin-bottom: 20px; font-weight: 600; }
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .service-card {
-      background: #ffffff;
-      color: #0d1015;
-      border-radius: 16px;
-      padding: 24px;
-    }
+    .services { padding: 20px 0 60px; }
+    .services h2 { font-size: 20px; margin-bottom: 18px; }
+    .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .service-card { background: #fff; color: #0d1015; border-radius: 16px; padding: 22px; }
     .service-card h3 { font-size: 17px; margin-bottom: 8px; }
     .service-card p { font-size: 14px; color: #4b5563; line-height: 1.5; }
 
     @media (max-width: 768px) {
-      .hero { grid-template-columns: 1fr; text-align: center; padding: 35px 0; }
-      .hero h1 { font-size: 28px; }
-      .hero p { margin: 0 auto 24px; }
-      .search-box { margin: 0 auto 20px; }
+      .hero { grid-template-columns: 1fr; text-align: center; padding: 30px 0; }
+      .hero h1 { font-size: 26px; }
+      .hero p { margin: 0 auto 20px; }
+      .search-box { margin: 0 auto 18px; }
       .btn-group { justify-content: center; margin: 0 auto; }
-      .card-3d { width: 240px; height: 240px; }
+      .card-3d { width: 230px; height: 230px; }
       .cards-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -321,38 +85,22 @@
       <h3>⚙️ Sozlamalar</h3>
       <button class="close-btn" onclick="toggleMenu()">&times;</button>
     </div>
-
     <div class="setting-group">
-      <h4>Sayt ko'rinishi (Tema)</h4>
-      <div class="theme-options">
-        <button class="theme-btn" onclick="setTheme('dark')">🌑 Qora rejim (Standart)</button>
-        <button class="theme-btn" onclick="setTheme('blue')">🌌 To'q ko'k rejim</button>
-        <button class="theme-btn" onclick="setTheme('light')">☀️ Yorug' (Oq) rejim</button>
-      </div>
+      <h4>Sayt ko'rinishi</h4>
+      <button class="theme-btn" onclick="setTheme('dark')">🌑 Qora rejim</button>
+      <button class="theme-btn" onclick="setTheme('blue')">🌌 To'q ko'k rejim</button>
+      <button class="theme-btn" onclick="setTheme('light')">☀️ Oq rejim</button>
     </div>
-
     <div class="setting-group">
-      <h4>
-        <span>🕒 Qidiruv tarixi</span>
-        <button class="clear-history" onclick="clearHistory()">Tozalash</button>
-      </h4>
-      <div class="history-list" id="historyList">
-        <p class="empty-history">Hozircha qidiruvlar yo'q</p>
-      </div>
+      <h4><span>🕒 Qidiruv tarixi</span> <button class="clear-btn" onclick="clearHistory()">Tozalash</button></h4>
+      <div id="historyList"></div>
     </div>
   </aside>
 
   <div class="container">
     <header>
-      <div class="logo">
-        <div class="logo-icon">TU</div>
-        <span>TOHIRJON USMONOV</span>
-      </div>
-      <button class="menu-btn" onclick="toggleMenu()" aria-label="Menyu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <div class="logo"><div class="logo-icon">TU</div><span>TOHIRJON USMONOV</span></div>
+      <button class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
     </header>
 
     <section class="hero">
@@ -361,10 +109,83 @@
         <p>Zamonaviy texnologiyalar va kreativ yechimlar bilan raqamli dunyoni yangi bosqichga olib chiqamiz.</p>
         
         <form onsubmit="handleSearch(event)" class="search-box">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>🔍</span>
           <input type="text" id="searchInput" placeholder="Google'dan qidirish..." required>
         </form>
 
         <div class="btn-group">
-          <a href="https://chatgpt.com" target="_blank" class="social-btn btn-gpt">
+          <a href="https://chatgpt.com" target="_blank" class="social-btn btn-gpt"><img src="https://google.com" alt=""> ChatGPT</a>
+          <a href="https://telegram.org" target="_blank" class="social-btn btn-tg"><img src="https://google.com" alt=""> Telegram</a>
+          <a href="https://tiktok.com" target="_blank" class="social-btn btn-tt"><img src="https://google.com" alt=""> TikTok</a>
+          <a href="https://youtube.com" target="_blank" class="social-btn btn-yt"><img src="https://google.com" alt=""> YouTube</a>
+          <a href="https://instagram.com" target="_blank" class="social-btn btn-ig"><img src="https://google.com" alt=""> Instagram</a>
+        </div>
+      </div>
 
+      <div class="hero-visual">
+        <div class="card-3d" id="card3d">
+          <img src="IMG_20261110_174641_461.jpg" alt="Tohirjon Usmonov">
+        </div>
+        <span class="hint-3d">🔄 O'zi aylanadi • Qo'l bilan aylantirish mumkin</span>
+      </div>
+    </section>
+
+    <section class="services">
+      <h2>Asosiy yo'nalishlar</h2>
+      <div class="cards-grid">
+        <div class="service-card"><h3>Veb-sayt yaratish</h3><p>Zamonaviy, tezkor va har qanday qurilmaga moslashuvchan saytlar.</p></div>
+        <div class="service-card"><h3>Raqamli kontent</h3><p>YouTube va ijtimoiy tarmoqlar uchun qiziqarli videolar.</p></div>
+        <div class="service-card"><h3>Innovatsion g'oyalar</h3><p>Yangi texnologiyalar va sun'iy intellekt yechimlari.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('drawer').classList.toggle('open');
+      document.getElementById('overlay').classList.toggle('active');
+    }
+    function setTheme(t) {
+      document.body.className = t === 'dark' ? '' : t;
+      localStorage.setItem('site-theme', t);
+    }
+    if (localStorage.getItem('site-theme')) setTheme(localStorage.getItem('site-theme'));
+
+    function handleSearch(e) {
+      e.preventDefault();
+      const input = document.getElementById('searchInput');
+      const q = input.value.trim();
+      if (!q) return;
+      let h = JSON.parse(localStorage.getItem('search-history') || '[]');
+      h = [q, ...h.filter(i => i !== q)].slice(0, 10);
+      localStorage.setItem('search-history', JSON.stringify(h));
+      renderHistory();
+      window.open('https://google.com' + encodeURIComponent(q), '_blank');
+      input.value = '';
+    function renderHistory() {
+      const list = document.getElementById('historyList');
+      const h = JSON.parse(localStorage.getItem('search-history') || '[]');
+      list.innerHTML = h.length ? h.map(i => `<div class="history-item" onclick="window.open('https://google.com{encodeURIComponent(i)}','_blank')"><span>🔍 ${i}</span></div>`).join('') : '<p style="font-size:13px;color:#6b7280;">Tarix bo\'sh</p>';
+    }
+    function clearHistory() { localStorage.removeItem('search-history'); renderHistory(); }
+    renderHistory();
+
+    const card = document.getElementById('card3d');
+    let ry = 0, rx = 0, drag = false, lx = 0, ly = 0;
+    function loop() {
+      if (!drag) ry += 0.6;
+      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+      requestAnimationFrame(loop);
+    }
+    loop();
+    card.addEventListener('pointerdown', e => { drag = true; lx = e.clientX; ly = e.clientY; });
+    window.addEventListener('pointermove', e => {
+      if (!drag) return;
+      ry += (e.clientX - lx) * 0.8;
+      rx = Math.max(-45, Math.min(45, rx - (e.clientY - ly) * 0.8));
+      lx = e.clientX; ly = e.clientY;
+    });
+    window.addEventListener('pointerup', () => drag = false);
+  </script>
+</body>
+</html>
