@@ -379,5 +379,21 @@
         }
       })
       .catch(() => {});
+        // 3. Layk bosilganda
+    if (likeBtn) {
+      likeBtn.onclick = function() {
+        if (localStorage.getItem('site-liked')) return;
+        localStorage.setItem('site-liked', '1');
+        likeBtn.classList.add('liked');
+        const cur = parseInt(likeCountEl.textContent) || 0;
+        likeCountEl.textContent = cur + 1;
+        fetch(base + 'likes/up').catch(() => {});
+      };
+    }
+  })();
+</script>
+</body>
+</html>
+
 </body>
 </html>
