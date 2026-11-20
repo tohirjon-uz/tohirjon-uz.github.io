@@ -5,38 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tohirjon Usmonov — Shaxsiy Sayt</title>
   <style>
-    :root {
-      --bg: #0d1015;
-      --text: #ffffff;
-      --sub: #9ca3af;
-      --card: #141820;
-      --border: rgba(255, 255, 255, 0.1);
-      --glow: rgba(56, 189, 248, 0.45);
-    }
-    body.blue { --bg: #071324; --card: #0e1e36; --glow: rgba(96, 165, 250, 0.55); }
-    body.light { --bg: #f3f4f6; --text: #111827; --sub: #4b5563; --card: #ffffff; --border: rgba(0, 0, 0, 0.1); --glow: rgba(37, 99, 235, 0.35); }
+    :root { --bg: #0d1015; --text: #ffffff; --sub: #9ca3af; --card: #141820; --border: rgba(255,255,255,0.1); --glow: rgba(56,189,248,0.45); }
+    body.blue { --bg: #071324; --card: #0e1e36; --glow: rgba(96,165,250,0.55); }
+    body.light { --bg: #f3f4f6; --text: #111827; --sub: #4b5563; --card: #ffffff; --border: rgba(0,0,0,0.1); --glow: rgba(37,99,235,0.35); }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; transition: 0.3s; }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-    header { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border); }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border); position: relative; z-index: 50; }
     .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; }
     .logo-icon { width: 32px; height: 32px; background: var(--text); color: var(--bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 13px; }
 
-    .menu-btn { background: var(--card); border: 1px solid var(--border); width: 42px; height: 42px; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; cursor: pointer; }
-    .menu-btn span { width: 20px; height: 2px; background: var(--text); border-radius: 2px; }
+    .menu-btn { background: var(--card); border: 1px solid var(--border); width: 44px; height: 44px; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; cursor: pointer; }
+    .menu-btn span { width: 20px; height: 2px; background: var(--text); border-radius: 2px; pointer-events: none; }
 
-    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; z-index: 90; }
+    /* Sozlamalar oynasi */
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); display: none; z-index: 998; }
     .overlay.active { display: block; }
-    .drawer { position: fixed; top: 0; right: -320px; width: 290px; height: 100vh; background: #141820; color: #fff; padding: 22px; z-index: 100; transition: 0.3s; border-left: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
-    .drawer.open { right: 0; }
+    .drawer { position: fixed; top: 0; right: 0; width: 290px; height: 100vh; background: #141820; color: #fff; padding: 22px; z-index: 999; transform: translateX(100%); transition: transform 0.3s ease; border-left: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
+    .drawer.open { transform: translateX(0); }
     .drawer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; }
-    .close-btn { background: none; border: none; color: #9ca3af; font-size: 26px; cursor: pointer; }
+    .close-btn { background: none; border: none; color: #9ca3af; font-size: 28px; cursor: pointer; padding: 0 6px; }
     .setting-group h4 { font-size: 12px; color: #9ca3af; margin-bottom: 10px; text-transform: uppercase; display: flex; justify-content: space-between; }
     .clear-btn { background: none; border: none; color: #f87171; font-size: 12px; cursor: pointer; }
-    .theme-btn { width: 100%; background: #1f2532; color: #fff; border: 1px solid #2e3646; padding: 10px; border-radius: 10px; text-align: left; font-size: 14px; cursor: pointer; margin-bottom: 8px; }
-    .history-item { background: #1f2532; padding: 8px 12px; border-radius: 8px; font-size: 13px; display: flex; justify-content: space-between; cursor: pointer; margin-bottom: 6px; }
+    .theme-btn { width: 100%; background: #1f2532; color: #fff; border: 1px solid #2e3646; padding: 11px; border-radius: 10px; text-align: left; font-size: 14px; cursor: pointer; margin-bottom: 8px; }
+    .history-item { background: #1f2532; padding: 9px 12px; border-radius: 8px; font-size: 13px; display: flex; justify-content: space-between; cursor: pointer; margin-bottom: 6px; }
 
     .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 40px; padding: 45px 0; }
     .hero h1 { font-size: 38px; font-weight: 800; line-height: 1.15; margin-bottom: 16px; text-transform: uppercase; }
@@ -47,7 +41,7 @@
 
     .btn-group { display: flex; gap: 10px; flex-wrap: wrap; max-width: 480px; }
     .social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 12px; font-weight: 600; font-size: 14px; text-decoration: none; color: #fff; }
-    .social-btn img { width: 18px; height: 18px; border-radius: 4px; }
+    .social-btn svg { width: 18px; height: 18px; }
     .btn-gpt { background: #10a37f; }
     .btn-tg { background: #229ED9; }
     .btn-yt { background: #FF0000; }
@@ -79,11 +73,11 @@
 </head>
 <body>
 
-  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+  <div class="overlay" id="overlay"></div>
   <aside class="drawer" id="drawer">
     <div class="drawer-header">
       <h3>⚙️ Sozlamalar</h3>
-      <button class="close-btn" onclick="toggleMenu()">&times;</button>
+      <button class="close-btn" id="closeBtn">&times;</button>
     </div>
     <div class="setting-group">
       <h4>Sayt ko'rinishi</h4>
@@ -100,7 +94,7 @@
   <div class="container">
     <header>
       <div class="logo"><div class="logo-icon">TU</div><span>TOHIRJON USMONOV</span></div>
-      <button class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+      <button class="menu-btn" id="menuBtn" type="button"><span></span><span></span><span></span></button>
     </header>
 
     <section class="hero">
@@ -114,11 +108,26 @@
         </form>
 
         <div class="btn-group">
-          <a href="https://chatgpt.com" target="_blank" class="social-btn btn-gpt"><img src="https://google.com" alt=""> ChatGPT</a>
-          <a href="https://telegram.org" target="_blank" class="social-btn btn-tg"><img src="https://google.com" alt=""> Telegram</a>
-          <a href="https://tiktok.com" target="_blank" class="social-btn btn-tt"><img src="https://google.com" alt=""> TikTok</a>
-          <a href="https://youtube.com" target="_blank" class="social-btn btn-yt"><img src="https://google.com" alt=""> YouTube</a>
-          <a href="https://instagram.com" target="_blank" class="social-btn btn-ig"><img src="https://google.com" alt=""> Instagram</a>
+          <a href="https://chatgpt.com" target="_blank" class="social-btn btn-gpt">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            ChatGPT
+          </a>
+          <a href="https://telegram.org" target="_blank" class="social-btn btn-tg">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 3L3 10.5l6.7 2.5L18 7l-6.5 7.5L17 20l4-17z"/></svg>
+            Telegram
+          </a>
+          <a href="https://tiktok.com" target="_blank" class="social-btn btn-tt">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+            TikTok
+          </a>
+          <a href="https://youtube.com" target="_blank" class="social-btn btn-yt">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="9.5 7.5 16.5 12 9.5 16.5 9.5 7.5"/></svg>
+            YouTube
+          </a>
+          <a href="https://instagram.com" target="_blank" class="social-btn btn-ig">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+            Instagram
+          </a>
         </div>
       </div>
 
@@ -141,10 +150,18 @@
   </div>
 
   <script>
-    function toggleMenu() {
-      document.getElementById('drawer').classList.toggle('open');
-      document.getElementById('overlay').classList.toggle('active');
-    }
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('overlay');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function openMenu() { drawer.classList.add('open'); overlay.classList.add('active'); }
+    function closeMenu() { drawer.classList.remove('open'); overlay.classList.remove('active'); }
+
+    menuBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+
     function setTheme(t) {
       document.body.className = t === 'dark' ? '' : t;
       localStorage.setItem('site-theme', t);
@@ -162,10 +179,11 @@
       renderHistory();
       window.open('https://google.com' + encodeURIComponent(q), '_blank');
       input.value = '';
+    }
     function renderHistory() {
       const list = document.getElementById('historyList');
       const h = JSON.parse(localStorage.getItem('search-history') || '[]');
-      list.innerHTML = h.length ? h.map(i => `<div class="history-item" onclick="window.open('https://google.com{encodeURIComponent(i)}','_blank')"><span>🔍 ${i}</span></div>`).join('') : '<p style="font-size:13px;color:#6b7280;">Tarix bo\'sh</p>';
+      list.innerHTML = h.length ? h.map(i => `<div class="history-item" onclick="window.open('https://google.com${encodeURIComponent(i)}','_blank')"><span>🔍 ${i}</span></div>`).join('') : '<p style="font-size:13px;color:#6b7280;">Tarix bo\'sh</p>';
     }
     function clearHistory() { localStorage.removeItem('search-history'); renderHistory(); }
     renderHistory();
