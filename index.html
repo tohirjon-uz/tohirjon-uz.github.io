@@ -454,6 +454,115 @@
     }
   })();
 </script>
+<style>
+  .qr-btn { background: rgba(168, 85, 247, 0.14); border: 1px solid rgba(168, 85, 247, 0.35); color: #c084fc; padding: 6px 12px; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: 0.2s; }
+  .qr-btn:active { transform: scale(0.92); }
+  .qr-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
+  .scan-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 1001; padding: 20px; }
+  .scan-modal.open { display: flex; }
+  .scan-box { background: var(--card); border: 1px solid var(--border); padding: 18px; border-radius: 20px; text-align: center; width: 100%; max-width: 340px; }
+  #scanVideo { width: 100%; height: 250px; object-fit: cover; border-radius: 14px; background: #000; margin: 12px 0; }
+  .scan-res { color: #38bdf8; font-size: 14px; font-weight: 600; word-break: break-all; margin-bottom: 12px; }
+  .scan-actions { display: flex; gap: 8px; }
+  .scan-btn { flex: 1; padding: 10px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; font-size: 13px; }
+  .scan-file { background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.3); }
+  .scan-close { background: #ef4444; color: #fff; }
+</style>
+
+<script src="https://jsdelivr.net"></script>
+<script>
+  (function() {
+    const bar = document.querySelector('.stats-bar');
+    if (!bar) return;
+
+    let btn = document.querySelector('.qr-btn');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.className = 'qr-btn';
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>';
+      bar.appendChild(btn);
+    }
+
+    const modal = document.createElement('div');
+    modal.className = 'scan-modal';
+    modal.innerHTML = `
+      <div class="scan-box">
+        <h3>📷 QR-kod skaneri</h3>
+        <video id="scanVideo" playsinline></video>
+        <div class="scan-res" id="scanRes">Kamerani QR-kodga qarating...</div>
+        <div class="scan-actions">
+          <label class="scan-btn scan-file">🖼️ Rasmdan<input type="file" id="scanInput" accept="image/*" hidden></label>
+          <button class="scan-btn scan-close" id="scanClose">Yopish</button>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+
+    const video = document.getElementById('scanVideo');
+    const resEl = document.getElementById('scanRes');
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    let stream = null, scanning = false;
+
+    function handleFound(data) {
+      scanning = false;
+      resEl.innerHTML = data.startsWith('http') ? `<a href="${data}" target="_blank" style="color:#38bdf8">${data}</a>` : data;
+      if (data.startsWith('http')) window.open(data, '_blank');
+    }
+
+    function tick() {
+      if (!scanning) return;
+      if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const code = window.jsQR && jsQR(img.data, img.width, img.height);
+        if (code) { handleFound(code.data); return; }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function stopCamera() {
+      scanning = false;
+      if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+      modal.classList.remove('open');
+    }
+
+    btn.onclick = async () => {
+      modal.classList.add('open');
+      resEl.textContent = 'Kamerani QR-kodga qarating...';
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+        video.srcObject = stream;
+        video.play();
+        scanning = true;
+        requestAnimationFrame(tick);
+      } catch (e) {
+        resEl.textContent = 'Kamera ochilmadi. Pastdan rasm tanlang 👇';
+      }
+    };
+
+    document.getElementById('scanInput').onchange = e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const img = new Image();
+      img.onload = () => {
+        canvas.width = img.width; canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const code = window.jsQR && jsQR(data.data, data.width, data.height);
+        resEl.textContent = code ? '' : 'QR-kod topilmadi';
+        if (code) handleFound(code.data);
+      };
+      img.src = URL.createObjectURL(file);
+    };
+
+    document.getElementById('scanClose').onclick = stopCamera;
+  })();
+</script>
+</body>
+</html>
+
 </body>
 </html>
 
