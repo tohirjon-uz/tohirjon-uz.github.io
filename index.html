@@ -345,46 +345,39 @@
       heroVisual.appendChild(bar);
     }
 
-    const base = 'https://api.' + 'counterapi.dev/v1/' + 'tohirjon-uz-site/';
+     
+    const base = 'https://api.' + 'counterapi.dev/v1/' + 'tohirjonuz2026/';
 
     // 1. Tashriflar sonini oshirish va ko'rsatish
+    const vEl = document.getElementById('viewCount');
+    let localViews = (parseInt(localStorage.getItem('local-views')) || 0) + 1;
+    localStorage.setItem('local-views', localViews);
+    if (vEl) vEl.textContent = localViews;
+
     fetch(base + 'views/up')
       .then(r => r.json())
       .then(d => {
-        const vEl = document.getElementById('viewCount');
-        if (vEl && d.count !== undefined) vEl.textContent = d.count;
+        if (vEl && d.count) vEl.textContent = Math.max(d.count, localViews);
       })
-      .catch(() => {
-        const vEl = document.getElementById('viewCount');
-        if (vEl) vEl.textContent = '1';
-      });
+      .catch(() => {});
 
     // 2. Layklar sonini olish
     const likeBtn = document.getElementById('likeBtn');
     const likeCountEl = document.getElementById('likeCount');
-    if (localStorage.getItem('site-liked')) likeBtn.classList.add('liked');
+    if (localStorage.getItem('site-liked')) {
+      likeBtn.classList.add('liked');
+      likeCountEl.textContent = '1';
+    } else {
+      likeCountEl.textContent = '0';
+    }
 
     fetch(base + 'likes/')
       .then(r => r.json())
       .then(d => {
-        if (likeCountEl) likeCountEl.textContent = d.count || 0;
+        if (likeCountEl && d.count !== undefined) {
+          likeCountEl.textContent = localStorage.getItem('site-liked') ? Math.max(d.count, 1) : d.count;
+        }
       })
-      .catch(() => {
-        if (likeCountEl) likeCountEl.textContent = '0';
-      });
-
-    // 3. Layk bosilganda
-    if (likeBtn) {
-      likeBtn.onclick = function() {
-        if (localStorage.getItem('site-liked')) return;
-        localStorage.setItem('site-liked', '1');
-        likeBtn.classList.add('liked');
-        const cur = parseInt(likeCountEl.textContent) || 0;
-        likeCountEl.textContent = cur + 1;
-        fetch(base + 'likes/up').catch(() => {});
-      };
-    }
-  })();
-</script>
+      .catch(() => {});
 </body>
 </html>
