@@ -325,5 +325,66 @@
   })();
 </script>
 
+
+<style>
+  .stats-bar { display: inline-flex; align-items: center; gap: 14px; background: var(--card); border: 1px solid var(--border); padding: 8px 18px; border-radius: 999px; margin-top: 18px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-size: 14px; font-weight: 600; }
+  .stat-item { display: flex; align-items: center; gap: 6px; color: var(--sub); }
+  .like-btn { background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.35); color: #fb7185; padding: 5px 12px; border-radius: 999px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; transition: 0.2s; }
+  .like-btn:active { transform: scale(0.9); }
+  .like-btn.liked { background: #f43f5e; color: #fff; border-color: #f43f5e; }
+</style>
+
+<script>
+  (function() {
+    const heroVisual = document.querySelector('.hero-visual');
+    if (heroVisual) {
+      const bar = document.createElement('div');
+      bar.className = 'stats-bar';
+      bar.innerHTML = '<div class="stat-item"><span>👁️</span><span id="viewCount">...</span></div>' +
+                      '<button class="like-btn" id="likeBtn"><span>❤️</span><span id="likeCount">...</span></button>';
+      heroVisual.appendChild(bar);
+    }
+
+    const base = 'https://api.' + 'counterapi.dev/v1/' + 'tohirjon-uz-site/';
+
+    // 1. Tashriflar sonini oshirish va ko'rsatish
+    fetch(base + 'views/up')
+      .then(r => r.json())
+      .then(d => {
+        const vEl = document.getElementById('viewCount');
+        if (vEl && d.count !== undefined) vEl.textContent = d.count;
+      })
+      .catch(() => {
+        const vEl = document.getElementById('viewCount');
+        if (vEl) vEl.textContent = '1';
+      });
+
+    // 2. Layklar sonini olish
+    const likeBtn = document.getElementById('likeBtn');
+    const likeCountEl = document.getElementById('likeCount');
+    if (localStorage.getItem('site-liked')) likeBtn.classList.add('liked');
+
+    fetch(base + 'likes/')
+      .then(r => r.json())
+      .then(d => {
+        if (likeCountEl) likeCountEl.textContent = d.count || 0;
+      })
+      .catch(() => {
+        if (likeCountEl) likeCountEl.textContent = '0';
+      });
+
+    // 3. Layk bosilganda
+    if (likeBtn) {
+      likeBtn.onclick = function() {
+        if (localStorage.getItem('site-liked')) return;
+        localStorage.setItem('site-liked', '1');
+        likeBtn.classList.add('liked');
+        const cur = parseInt(likeCountEl.textContent) || 0;
+        likeCountEl.textContent = cur + 1;
+        fetch(base + 'likes/up').catch(() => {});
+      };
+    }
+  })();
+</script>
 </body>
 </html>
