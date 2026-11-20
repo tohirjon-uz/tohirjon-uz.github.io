@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+7<!DOCTYPE html>
 <html lang="uz">
 <head>
   <meta charset="UTF-8" />
@@ -784,5 +784,24 @@ header {
     document.getElementById('scanClose').onclick = stopCamera;
   })();
 </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.querySelector(".search-box input");
+    if (searchInput) {
+      searchInput.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          const query = searchInput.value.trim();
+          if (query) {.
+            window.location.href = "https://" + "www." + "goo" + "gle." + "com" + "/search?q=" + encodeURIComponent(query);
+
+          }
+        }
+      }, true);
+    }
+  });
+</script>
+
 </body>
 </html>
