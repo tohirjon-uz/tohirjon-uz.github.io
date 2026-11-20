@@ -3,231 +3,268 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tohirjon Usmonov</title>
-  <script src="https://jsdelivr.net"></script>
+  <title>Tohirjon Usmonov — Shaxsiy Sayt</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body {
+      background-color: #0d1015;
+      color: #ffffff;
       min-height: 100vh;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: #fff;
-      padding: 20px 16px 90px;
+      overflow-x: hidden;
     }
-    .container { max-width: 480px; margin: 0 auto; }
-    .profile-card {
-      background: rgba(255, 255, 255, 0.16);
-      backdrop-filter: blur(12px);
-      border-radius: 24px;
-      padding: 28px 20px;
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    /* Yuqori menyu (Navbar) */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: #fff;
+      color: #0d1015;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 14px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    .nav-links a {
+      color: #9ca3af;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    /* Asosiy qism (Hero) */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 40px;
+      padding: 60px 0;
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+    .hero p {
+      color: #9ca3af;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      max-width: 480px;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #141820;
+      border: 1px solid #2d333f;
+      border-radius: 10px;
+      padding: 12px 16px;
+      max-width: 440px;
       margin-bottom: 24px;
     }
-    .avatar {
-      width: 96px; height: 96px; border-radius: 50%;
-      background: #fff; color: #667eea;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 36px; font-weight: bold;
-      margin: 0 auto 14px; border: 3px solid #fff;
+    .search-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      width: 100%;
+      font-size: 14px;
+      margin-left: 10px;
     }
-    .profile-card h1 { font-size: 24px; margin-bottom: 8px; }
-    .profile-card p { font-size: 14px; opacity: 0.92; line-height: 1.4; margin-bottom: 20px; }
+
+    /* Saytlar tugmalari */
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      max-width: 480px;
+    }
     .social-btn {
-      display: block; width: 100%; padding: 14px;
-      background: #fff; color: #333; text-decoration: none;
-      font-weight: 600; border-radius: 14px; margin-bottom: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      transition: 0.2s;
+      border: 1px solid #374151;
+      color: #ffffff;
+      background: #141820;
     }
-    .video-card {
-      background: rgba(255, 255, 255, 0.96); color: #222;
-      border-radius: 20px; overflow: hidden; margin-bottom: 18px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    .social-btn:hover {
+      transform: translateY(-2px);
+      border-color: #ffffff;
     }
-    .video-card video { width: 100%; max-height: 420px; background: #000; display: block; }
-    .video-info { padding: 14px 16px; }
-    .video-title { font-weight: 700; font-size: 16px; margin-bottom: 10px; }
-    .actions { display: flex; gap: 12px; margin-bottom: 12px; }
-    .action-btn {
-      border: none; background: #f0f2f5; padding: 8px 14px;
-      border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px;
+    .btn-gpt { background: #10a37f; border-color: #10a37f; color: #fff; }
+    .btn-gpt:hover { background: #0d8a6a; }
+    .btn-tg { background: #229ED9; border-color: #229ED9; color: #fff; }
+    .btn-tg:hover { background: #1c88bc; }
+    .btn-yt { background: #FF0000; border-color: #FF0000; color: #fff; }
+    .btn-yt:hover { background: #cc0000; }
+    .btn-tt { background: #000000; border-color: #25F4EE; color: #fff; box-shadow: -2px 0 0 #25F4EE, 2px 0 0 #FE2C55; }
+    .btn-ig { background: #ffffff; border-color: #ffffff; color: #0d1015; }
+
+    /* O'ng tomondagi rasm (Glow effektli) */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      position: relative;
     }
-    .comments-box { border-top: 1px solid #eee; padding-top: 10px; }
-    .comment-item { font-size: 13px; margin-bottom: 6px; color: #444; }
-    .comment-form { display: flex; gap: 8px; margin-top: 8px; }
-    .comment-form input {
-      flex: 1; padding: 8px 12px; border: 1px solid #ddd;
-      border-radius: 10px; outline: none; font-size: 13px;
+    .glow-circle {
+      width: 310px;
+      height: 310px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(56, 189, 248, 0.4);
+      box-shadow: 0 0 60px rgba(56, 189, 248, 0.28), inset 0 0 30px rgba(56, 189, 248, 0.3);
     }
-    .comment-form button {
-      background: #667eea; color: #fff; border: none;
-      padding: 8px 14px; border-radius: 10px; font-weight: 600; cursor: pointer;
+    .glow-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
-    .fab {
-      position: fixed; bottom: 22px; right: 22px;
-      width: 60px; height: 60px; border-radius: 50%;
-      background: #fff; color: #667eea; border: none;
-      font-size: 32px; font-weight: bold;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25); cursor: pointer;
+
+    /* Pastki kartalar (Featured Services) */
+    .services {
+      padding: 30px 0 70px;
     }
-    .modal {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0, 0, 0, 0.6); align-items: center; justify-content: center; padding: 16px;
+    .services h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      font-weight: 600;
     }
-    .modal.active { display: flex; }
-    .modal-content {
-      background: #fff; color: #222; width: 100%; max-width: 400px;
-      border-radius: 20px; padding: 20px;
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
     }
-    .modal-content h3 { margin-bottom: 14px; }
-    .modal-content input { width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid #ccc; border-radius: 10px; }
-    .modal-btns { display: flex; gap: 10px; justify-content: flex-end; }
-    .btn-primary { background: #667eea; color: #fff; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 600; }
-    .btn-cancel { background: #eee; color: #333; border: none; padding: 10px 16px; border-radius: 10px; }
-    .status-msg { text-align: center; padding: 14px; background: rgba(255,255,255,0.2); border-radius: 14px; margin-bottom: 16px; }
+    .service-card {
+      background: #ffffff;
+      color: #0d1015;
+      border-radius: 16px;
+      padding: 24px;
+      transition: transform 0.2s;
+    }
+    .service-card:hover { transform: translateY(-4px); }
+    .service-card h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+    .service-card p {
+      font-size: 14px;
+      color: #4b5563;
+      line-height: 1.5;
+    }
+
+    /* Telefonga moslashuv */
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 40px 0;
+      }
+      .hero h1 { font-size: 30px; }
+      .hero p { margin: 0 auto 24px; }
+      .search-box { margin: 0 auto 20px; }
+      .btn-group { justify-content: center; margin: 0 auto; }
+      .glow-circle { width: 240px; height: 240px; }
+      .cards-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-
   <div class="container">
-    <div id="statusBox" class="status-msg" style="display:none;"></div>
-
-    <div class="profile-card">
-      <img src="IMG_20261110_174641_461.jpg" alt="Tohirjon Usmonov" class="avatar" style="object-fit: cover;">
-
-      <h1>Tohirjon Usmonov</h1>
-      <p>Mening shaxsiy veb-saytimga xush kelibsiz! Videolarga layk bosing va izoh qoldiring.</p>
-      <a href="https://instagram.com" target="_blank" class="social-btn">Instagram sahifam</a>
-      <a href="https://youtube.com" target="_blank" class="social-btn">YouTube kanalim</a>
-    </div> 
-      <div class="video-card">
-    <img src="IMG_20261110_174641_461.jpg" alt="Rasm" style="width: 100%; display: block;">
-  </div>
-
-
-    <div id="videosList"></div>
-  </div>
-
-  <button class="fab" onclick="openModal()">+</button>
-
-  <div id="uploadModal" class="modal">
-    <div class="modal-content">
-      <h3>Yangi video yuklash</h3>
-      <input type="text" id="videoTitle" placeholder="Video sarlavhasini yozing..." />
-      <input type="file" id="videoFile" accept="video/*" />
-      <div class="modal-btns">
-        <button class="btn-cancel" onclick="closeModal()">Bekor qilish</button>
-        <button class="btn-primary" id="uploadBtn" onclick="uploadVideo()">Yuklash</button>
+    <!-- Yuqori menyu -->
+    <header>
+      <div class="logo">
+        <div class="logo-icon">TU</div>
+        <span>TOHIRJON USMONOV</span>
       </div>
-    </div>
+      <nav class="nav-links">
+        <a href="#xizmatlar">Xizmatlar</a>
+        <a href="https://chatgpt.com" target="_blank">ChatGPT</a>
+      </nav>
+    </header>
+
+    <!-- Asosiy ekran -->
+    <section class="hero">
+      <div>
+        <h1>KELAJAK RAQAMLI INNOVATSIYALARINI KASHF ETING</h1>
+        <p>Zamonaviy texnologiyalar va kreativ yechimlar bilan raqamli dunyoni yangi bosqichga olib chiqamiz.</p>
+        
+        <!-- Google qidiruv oynasi -->
+        <form action="https://google.com" method="get" target="_blank" class="search-box">
+          <span>🔍</span>
+          <input type="text" name="q" placeholder="Google'dan qidirish...">
+        </form>
+
+        <!-- Tezkor kirish tugmalari -->
+        <div class="btn-group">
+          <a href="https://chatgpt.com" target="_blank" class="social-btn btn-gpt">🤖 ChatGPT</a>
+          <a href="https://telegram.org" target="_blank" class="social-btn btn-tg">✈️ Telegram</a>
+          <a href="https://tiktok.com" target="_blank" class="social-btn btn-tt">🎵 TikTok</a>
+          <a href="https://youtube.com" target="_blank" class="social-btn btn-yt">▶️ YouTube</a>
+          <a href="https://instagram.com" target="_blank" class="social-btn btn-ig">📸 Instagram</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="glow-circle">
+          <img src="IMG_20261110_174641_461.jpg" alt="Tohirjon Usmonov">
+        </div>
+      </div>
+    </section>
+
+    <!-- Pastki oq kartalar -->
+    <section class="services" id="xizmatlar">
+      <h2>Asosiy yo'nalishlar</h2>
+      <div class="cards-grid">
+        <div class="service-card">
+          <h3>Veb-sayt yaratish</h3>
+          <p>Zamonaviy, tezkor va har qanday qurilmaga moslashuvchan saytlar ishlab chiqish.</p>
+        </div>
+        <div class="service-card">
+          <h3>Raqamli kontent</h3>
+          <p>YouTube va ijtimoiy tarmoqlar uchun qiziqarli hamda foydali videolar tayyorlash.</p>
+        </div>
+        <div class="service-card">
+          <h3>Innovatsion g'oyalar</h3>
+          <p>Yangi texnologiyalar va sun'iy intellekt imkoniyatlarini amaliyotga tatbiq etish.</p>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <script>
-    const SUPABASE_URL = 'https://supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_ieHAB6n9oBjpZJZ2JVZ6hw_17yR3gK9';
-    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-    function showStatus(text, isError = false) {
-      const box = document.getElementById('statusBox');
-      box.style.display = 'block';
-      box.style.background = isError ? '#e53e3e' : 'rgba(255,255,255,0.25)';
-      box.textContent = text;
-    }
-
-    async function loadVideos() {
-      const { data: videos, error } = await db
-        .from('videos')
-        .select('*, comments(*)')
-        .order('created_at', { ascending: false });
-
-      if (error) {
-        showStatus('❌ Xato: ' + error.message, true);
-        return;
-      }
-
-      const list = document.getElementById('videosList');
-      if (!videos || videos.length === 0) {
-        list.innerHTML = '<div class="status-msg">Hozircha videolar yo‘q. Pastdagi + tugmasi orqali birinchi videoni yuklang!</div>';
-        return;
-      }
-
-      list.innerHTML = videos.map(v => `
-        <div class="video-card">
-          <video src="${v.video_url}" controls playsinline></video>
-          <div class="video-info">
-            <div class="video-title">${v.title}</div>
-            <div class="actions">
-              <button class="action-btn" onclick="likeVideo('${v.id}', ${v.likes})">❤️ ${v.likes}</button>
-              <span class="action-btn">💬 ${(v.comments || []).length}</span>
-            </div>
-            <div class="comments-box">
-              ${(v.comments || []).map(c => `<div class="comment-item"><b>${c.author}:</b> ${c.text}</div>`).join('')}
-              <div class="comment-form">
-                <input type="text" id="comm-${v.id}" placeholder="Izoh yozing..." />
-                <button onclick="addComment('${v.id}')">Yuborish</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    async function uploadVideo() {
-      const title = document.getElementById('videoTitle').value.trim();
-      const file = document.getElementById('videoFile').files[0];
-      const btn = document.getElementById('uploadBtn');
-
-      if (!title || !file) {
-        alert('Iltimos, sarlavha yozing va video tanlang!');
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = 'Yuklanmoqda...';
-
-      const fileName = Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9.]/g, '_');
-      const { error: uploadError } = await db.storage.from('videos').upload(fileName, file);
-
-      if (uploadError) {
-        alert('Video yuklashda xato: ' + uploadError.message);
-        btn.disabled = false;
-        btn.textContent = 'Yuklash';
-        return;
-      }
-
-      const { data: urlData } = db.storage.from('videos').getPublicUrl(fileName);
-      const { error: dbError } = await db.from('videos').insert([{ title, video_url: urlData.publicUrl }]);
-
-      btn.disabled = false;
-      btn.textContent = 'Yuklash';
-
-      if (dbError) {
-        alert('Bazaga saqlashda xato: ' + dbError.message);
-      } else {
-        closeModal();
-        document.getElementById('videoTitle').value = '';
-        document.getElementById('videoFile').value = '';
-        loadVideos();
-      }
-    }
-
-    async function likeVideo(id, currentLikes) {
-      await db.from('videos').update({ likes: currentLikes + 1 }).eq('id', id);
-      loadVideos();
-    }
-
-    async function addComment(videoId) {
-      const input = document.getElementById('comm-' + videoId);
-      const text = input.value.trim();
-      if (!text) return;
-      await db.from('comments').insert([{ video_id: videoId, text }]);
-      input.value = '';
-      loadVideos();
-    }
-
-    function openModal() { document.getElementById('uploadModal').classList.add('active'); }
-    function closeModal() { document.getElementById('uploadModal').classList.remove('active'); }
-
-    loadVideos();
-  </script>
 </body>
 </html>
