@@ -785,32 +785,32 @@ header {
   })();
 
 <script>
-  function goSearch(q) {
-    if (!q) return;
-    const url = "https://" + "www." + "goo" + "gle." + "com" + "/search?q=" + encodeURIComponent(q);
-    window.location.replace(url);
-  }
+<script>
+  window.addEventListener("load", function() {
+    const oldInput = document.querySelector(".search-box input");
+    if (oldInput) {
+      // Eski noto'g'ri kodni to'liq o'chirish uchun inputni yangilaymiz
+      const newInput = oldInput.cloneNode(true);
+      oldInput.parentNode.replaceChild(newInput, oldInput);
 
-  document.addEventListener("submit", function(e) {
-    const inp = document.querySelector(".search-box input");
-    if (inp && inp.value.trim()) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      goSearch(inp.value.trim());
-    }
-  }, true);
-
-  document.addEventListener("keydown", function(e) {
-    if (e.key === "Enter" || e.keyCode === 13) {
-      const inp = document.querySelector(".search-box input");
-      if (inp && document.activeElement === inp) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        goSearch(inp.value.trim());
+      function runGoogleSearch() {
+        const q = newInput.value.trim();
+        if (q) {
+          const target = "https://" + "www." + "goo" + "gle." + "com" + "/search?q=" + encodeURIComponent(q);
+          window.location.href = target;
+        }
       }
-    }
-  }, true);
-</script>
 
-</body>
-</html>
+      newInput.addEventListener("keydown", function(e) {
+        if (e.key === "Enter" || e.keyCode === 13) {
+          e.preventDefault();
+          runGoogleSearch();
+        }
+      });
+
+      newInput.addEventListener("search", function() {
+        runGoogleSearch();
+      });
+    }
+  });
+</script>
