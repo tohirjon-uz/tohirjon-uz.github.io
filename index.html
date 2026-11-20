@@ -1,4 +1,4 @@
-576<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
   <meta charset="UTF-8" />
@@ -181,6 +181,43 @@ html, body {
     45% 27%, 62% 62%, 78% 34%, 91% 56%, 
     100% 40%, 100% 100%
   );
+}
+/* 1. 3D rasm, ChatGPT, Telegram, YouTube va ortiqcha elementlarni yashirish */
+.social-links, .quick-links, .hero-visual, .hint-3d, .hero h1, .hero p, .bg-scene,
+a[href*="chatgpt"], a[href*="t.me"], a[href*="youtube"], a[href*="tiktok"] {
+  display: none !important;
+}
+
+/* 2. Orqa fon: Siz yuklagan 3.jpg tog' rasmi */
+html, body {
+  background: url('3.jpg') no-repeat center center fixed !important;
+  background-size: cover !important;
+  min-height: 100vh;
+}
+
+/* 3. Yuqori panel va uchta chiziqli menyu o'z holicha qolishi */
+header {
+  position: relative;
+  z-index: 20;
+}
+
+/* 4. O'rtacha kattalikdagi qidiruv tizimi markazda */
+.hero {
+  min-height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-box {
+  width: 88% !important;
+  max-width: 430px !important;
+  margin: 0 auto !important;
+  background: rgba(15, 23, 42, 0.55) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
   </style>
