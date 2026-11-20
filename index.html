@@ -184,13 +184,13 @@
     window.onpointerup = () => drag = false;
 </script>
 <style>
-  .hero h1, .hero p, .services { display: none; }
-
-
-  .live-widget { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--border); padding: 8px 16px; border-radius: 999px; font-size: 16px; font-weight: 700; box-shadow: 0 4px 14px rgba(56,189,248,0.2); white-space: nowrap; }
-  .live-greet { color: var(--text); }
+  .hero h1, .hero p, .services, .btn-tt, .btn-uzum { display: none !important; }
+  .live-widget { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--border); padding: 8px 16px; border-radius: 999px; font-size: 16px; font-weight: 700; box-shadow: 0 4px 14px rgba(56,189,248,0.2); }
   .live-weather { color: #38bdf8; }
-  @media (max-width: 768px) { .logo span { display: none; } .live-widget { font-size: 14px; padding: 7px 13px; } }
+  .type-greet { font-size: 28px; font-weight: 800; margin-top: 10px; margin-bottom: 32px; min-height: 38px; text-align: center; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 0.5px; }
+  .type-cursor { display: inline-block; width: 3px; height: 26px; background: #38bdf8; margin-left: 4px; vertical-align: middle; animation: blink 0.8s infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+  @media (max-width: 768px) { .logo span { display: none; } .type-greet { font-size: 24px; margin-bottom: 28px; } }
 </style>
 
 <script>
@@ -200,25 +200,54 @@
     if (header && menuBtn) {
       const widget = document.createElement('div');
       widget.className = 'live-widget';
-      widget.innerHTML = '<span class="live-greet" id="liveGreet">Assalomu alaykum</span><span>•</span><span class="live-weather" id="liveWeather">🌡️ ...</span>';
+      widget.innerHTML = '<span class="live-weather" id="liveWeather">🌡️ ...</span>';
       header.insertBefore(widget, menuBtn);
     }
 
+    const heroVisual = document.querySelector('.hero-visual');
+    const card3d = document.getElementById('card3d');
+    if (heroVisual && card3d) {
+      const greetBox = document.createElement('div');
+      greetBox.className = 'type-greet';
+      greetBox.innerHTML = '<span id="typedText"></span><span class="type-cursor"></span>';
+      heroVisual.insertBefore(greetBox, card3d);
+    }
+
     const greets = {
-      uz: "Assalomu alaykum",
-      ru: "Здравствуйте",
-      en: "Welcome",
-      tr: "Merhaba",
-      ar: "السلام عليكم"
+      uz: "Assalomu alaykum!",
+      ru: "Здравствуйте!",
+      en: "Welcome!",
+      tr: "Merhaba!",
+      ar: "السلام عليكم!"
     };
 
-    function updateGreet() {
-      const lang = localStorage.getItem('site-lang') || 'uz';
-      const gEl = document.getElementById('liveGreet');
-      if (gEl) gEl.textContent = greets[lang] || greets.uz;
+    let currentLang = '';
+    let charIdx = 0;
+    let timer = null;
+
+    function startTyping(text) {
+      clearInterval(timer);
+      charIdx = 0;
+      const el = document.getElementById('typedText');
+      if (!el) return;
+      el.textContent = '';
+      timer = setInterval(() => {
+        if (charIdx < text.length) {
+          el.textContent += text[charIdx];
+          charIdx++;
+        } else {
+          clearInterval(timer);
+        }
+      }, 95);
     }
-    setInterval(updateGreet, 500);
-    updateGreet();
+
+    setInterval(() => {
+      const lang = localStorage.getItem('site-lang') || 'uz';
+      if (lang !== currentLang) {
+        currentLang = lang;
+        startTyping(greets[lang] || greets.uz);
+      }
+    }, 400);
 
     const url = 'https://api.' +
       'open-meteo.com' +
@@ -248,3 +277,4 @@
 </body>
 </html>
 
+</html>
