@@ -440,6 +440,20 @@
 </script>
 </body>
 </html>
+<style>
+  .share-btn { padding: 6px 12px !important; display: inline-flex; align-items: center; justify-content: center; }
+  .share-btn svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+</style>
 
+<script>
+  (function() {
+    const btn = document.getElementById('shareBtn');
+    if (btn) {
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M15 14l5-5-5-5"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/></svg>';
+      btn.setAttribute('aria-label', 'Ulashish');
+    }
+  })();
+</script>
 </body>
 </html>
+
