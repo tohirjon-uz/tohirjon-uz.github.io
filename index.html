@@ -909,61 +909,136 @@ header {
     }
 
     /* Pastki iqtibos */
-    .tu-quote {
-        position: fixed;
-        bottom: 18px;
-        left: 0;
-        right: 0;
-        text-align: center;
-        color: rgba(255, 255, 255, 0.88);
-        font-size: 13px;
-        padding: 0 16px;
-        z-index: 2; ➔ z-index: 9999;
-        z-index: 2;
-        pointer-events: none;
-     
-<div class="tu-clock-wrap" style="position:fixed; top:14%; left:0; right:0; z-index:9999; pointer-events:none;">
-    <div class="tu-clock" id="tuClock">09:30</div>
-    <div class="tu-date" id="tuDate"></div>
-    <div class="tu-greeting" id="tuGreeting">Xayrli tong, Tohirjon!</div>
+.tu-quote {
+  position: fixed;
+  bottom: 18px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 13px;
+  padding: 0 16px;
+  z-index: 9999;
+  pointer-events: none;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Soat va salomlashish vidjeti dizayni */
+.tu-clock-wrap {
+  position: fixed;
+  top: 13%;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  pointer-events: none;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.tu-clock {
+  font-size: 54px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.tu-date {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.tu-greeting {
+  font-size: 14px;
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Tezkor havolalar qatori */
+.tu-shortcuts {
+  position: fixed;
+  bottom: 14%;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  padding: 0 16px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.tu-shortcut-item:hover .tu-shortcut-icon {
+  background: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<div class="tu-clock-wrap">
+  <div class="tu-clock" id="tuClock">09:30</div>
+  <div class="tu-date" id="tuDate"></div>
+  <div class="tu-greeting" id="tuGreeting">Xayrli tong, Tohirjon!</div>
 </div>
-<div class="tu-shortcuts" style="position:fixed; bottom:14%; left:0; right:0; z-index:5;">
-    <a href="https://youtube.com" class="tu-shortcut-item">
-        <div class="tu-shortcut-icon"><i class="fab fa-youtube" style="color:#ff4d4d;"></i></div>
-        <span>YouTube</span>
-    </a>
-    <a href="https://t.me" class="tu-shortcut-item">
-        <div class="tu-shortcut-icon"><i class="fab fa-telegram-plane" style="color:#38bdf8;"></i></div>
-        <span>Telegram</span>
-    </a>
-    <a href="https://github.com" class="tu-shortcut-item">
-        <div class="tu-shortcut-icon"><i class="fab fa-github" style="color:#ffffff;"></i></div>
-        <span>GitHub</span>
-    </a>
-    <a href="https://chatgpt.com" class="tu-shortcut-item">
-        <div class="tu-shortcut-icon"><i class="fas fa-robot" style="color:#4ade80;"></i></div>
-        <span>ChatGPT</span>
-    </a>
+
+<div class="tu-shortcuts">
+  <a href="https://youtube.com" class="tu-shortcut-item">
+    <div class="tu-shortcut-icon"><i class="fab fa-youtube" style="color:#ff4d4d;"></i></div>
+    <span>YouTube</span>
+  </a>
+  <a href="https://t.me" class="tu-shortcut-item">
+    <div class="tu-shortcut-icon"><i class="fab fa-telegram-plane" style="color:#38bdf8;"></i></div>
+    <span>Telegram</span>
+  </a>
+  <a href="https://github.com" class="tu-shortcut-item">
+    <div class="tu-shortcut-icon"><i class="fab fa-github" style="color:#ffffff;"></i></div>
+    <span>GitHub</span>
+  </a>
+  <a href="https://chatgpt.com" class="tu-shortcut-item">
+    <div class="tu-shortcut-icon"><i class="fas fa-robot" style="color:#4ade80;"></i></div>
+    <span>ChatGPT</span>
+  </a>
 </div>
-<div class="tu-quote">"Buyuk ishlar kichik qadamlardan boshlanadi."</div>
+
+<div class="tu-quote">Buyuk ishlar kichik qadamlardan boshlanadi.</div>
+
 <script>
 function updateTuClock() {
-    const now = new Date();
-    const h = String(now.getHours()).padStart(2, '0');
-    const m = String(now.getMinutes()).padStart(2, '0');
-    document.getElementById('tuClock').textContent = `${h}:${m}`;
-    const hr = now.getHours();
-    let greet = "Xayrli kech, Tohirjon!";
-    if (hr >= 5 && hr < 12) greet = "Xayrli tong, Tohirjon!";
-    else if (hr >= 12 && hr < 18) greet = "Xayrli kun, Tohirjon!";
-    document.getElementById('tuGreeting').textContent = greet;
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  document.getElementById('tuClock').textContent = `${h}:${m}`;
+  const hr = now.getHours();
+  let greet = "Xayrli kech, Tohirjon!";
+  if (hr >= 5 && hr < 12) greet = "Xayrli tong, Tohirjon!";
+  else if (hr >= 12 && hr < 18) greet = "Xayrli kun, Tohirjon!";
+  document.getElementById('tuGreeting').textContent = greet;
 
-    const days = ['Yakshanba', 'Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'];
-    const months = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'];
-    document.getElementById('tuDate').textContent = `${days[now.getDay()]}, ${now.getDate()}-${months[now.getMonth()]}`;
+  const days = ['Yakshanba', 'Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'];
+  const months = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'];
+  document.getElementById('tuDate').textContent = `${days[now.getDay()]}, ${now.getDate()}-${months[now.getMonth()]}`;
 }
 setInterval(updateTuClock, 1000);
 updateTuClock();
 </script>
 </body>
 </html>
+
