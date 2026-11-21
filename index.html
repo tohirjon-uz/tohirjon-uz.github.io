@@ -1,4 +1,4 @@
-7<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
   <meta charset="UTF-8" />
@@ -784,7 +784,7 @@ header {
     document.getElementById('scanClose').onclick = stopCamera;
   })();
 
-<script>
+
 <script>
   window.addEventListener("load", function() {
     const oldInput = document.querySelector(".search-box input");
@@ -813,4 +813,181 @@ header {
       });
     }
   });
+<!-- === YANGI DIZAYN VA FUNKSIYALAR (ENG PASTGA QO'SHING) === -->
+<link rel="stylesheet" href="https://cloudflare.com">
+<style>
+    /* Orqa fon yozuvlarini aniq ko'rsatish uchun yengil qoraytirgich */
+    body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.5) 100%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* Eski qidiruv qutisini shaffof oyna (Glassmorphism) uslubiga o'tkazish */
+    .search-box {
+        background: rgba(255, 255, 255, 0.16) !important;
+        backdrop-filter: blur(18px) !important;
+        -webkit-backdrop-filter: blur(18px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.32) !important;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25) !important;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Soat va salomlashuv bloki */
+    .tu-clock-wrap {
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 24px;
+        text-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+        position: relative;
+        z-index: 2;
+        font-family: system-ui, -apple-system, sans-serif;
+    }
+    .tu-clock {
+        font-size: 62px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: -1.5px;
+    }
+    .tu-date {
+        font-size: 14px;
+        opacity: 0.9;
+        margin-top: 6px;
+    }
+    .tu-greeting {
+        font-size: 19px;
+        font-weight: 500;
+        margin-top: 10px;
+    }
+
+    /* Tezkor havolalar (Shortcuts) */
+    .tu-shortcuts {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin: 26px auto 0;
+        max-width: 360px;
+        width: 90%;
+        position: relative;
+        z-index: 2;
+    }
+    .tu-shortcut-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #ffffff;
+        gap: 7px;
+        transition: transform 0.2s ease;
+    }
+    .tu-shortcut-item:hover {
+        transform: translateY(-4px);
+    }
+    .tu-shortcut-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.16);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 21px;
+    }
+    .tu-shortcut-item span {
+        font-size: 12px;
+        font-weight: 500;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Pastki iqtibos */
+    .tu-quote {
+        position: fixed;
+        bottom: 18px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.88);
+        font-size: 13px;
+        padding: 0 16px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+        z-index: 2;
+        pointer-events: none;
+    }
+</style>
+
+<script>
+(function() {
+    const searchBox = document.querySelector('.search-box');
+    if (!searchBox) return;
+
+    // 1. Qidiruv qutisidan tepaga Soat va Salomlashuvni qo'shish
+    const clockWrap = document.createElement('div');
+    clockWrap.className = 'tu-clock-wrap';
+    clockWrap.innerHTML = `
+        <div class="tu-clock" id="tuClock">09:00</div>
+        <div class="tu-date" id="tuDate"></div>
+        <div class="tu-greeting" id="tuGreeting">Xayrli kun, Tohirjon!</div>
+    `;
+    searchBox.parentNode.insertBefore(clockWrap, searchBox);
+
+    // 2. Qidiruv qutisidan pastga Tezkor havolalarni qo'shish
+    const shortcuts = document.createElement('div');
+    shortcuts.className = 'tu-shortcuts';
+    shortcuts.innerHTML = `
+        <a href="https://youtube.com" class="tu-shortcut-item">
+            <div class="tu-shortcut-icon"><i class="fab fa-youtube" style="color:#ff4d4d;"></i></div>
+            <span>YouTube</span>
+        </a>
+        <a href="https://t.me" class="tu-shortcut-item">
+            <div class="tu-shortcut-icon"><i class="fab fa-telegram-plane" style="color:#38bdf8;"></i></div>
+            <span>Telegram</span>
+        </a>
+        <a href="https://github.com" class="tu-shortcut-item">
+            <div class="tu-shortcut-icon"><i class="fab fa-github" style="color:#ffffff;"></i></div>
+            <span>GitHub</span>
+        </a>
+        <a href="https://chatgpt.com" class="tu-shortcut-item">
+            <div class="tu-shortcut-icon"><i class="fas fa-robot" style="color:#4ade80;"></i></div>
+            <span>ChatGPT</span>
+        </a>
+    `;
+    searchBox.parentNode.insertBefore(shortcuts, searchBox.nextSibling);
+
+    // 3. Pastki iqtibosni qo'shish
+    const quote = document.createElement('div');
+    quote.className = 'tu-quote';
+    quote.textContent = '"Buyuk ishlar kichik qadamlardan boshlanadi."';
+    document.body.appendChild(quote);
+
+    // 4. Jonli soat va O'zbekcha sana funksiyasi
+    function updateTuClock() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        document.getElementById('tuClock').textContent = `${h}:${m}`;
+
+        const hr = now.getHours();
+        let greet = "Xayrli kech, Tohirjon!";
+        if (hr >= 5 && hr < 12) greet = "Xayrli tong, Tohirjon!";
+        else if (hr >= 12 && hr < 18) greet = "Xayrli kun, Tohirjon!";
+        document.getElementById('tuGreeting').textContent = greet;
+
+        const days = ['Yakshanba', 'Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'];
+        const months = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'];
+        document.getElementById('tuDate').textContent = `${days[now.getDay()]}, ${now.getDate()}-${months[now.getMonth()]}`;
+    }
+
+    setInterval(updateTuClock, 1000);
+    updateTuClock();
+})();
 </script>
+</body>
+</html>
