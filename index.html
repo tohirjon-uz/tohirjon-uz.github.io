@@ -815,6 +815,7 @@ header {
   });
 <!-- === YANGI DIZAYN VA FUNKSIYALAR (ENG PASTGA QO'SHING) === -->
 <link rel="stylesheet" href="https://cloudflare.com">
+
 <style>
     /* Orqa fon yozuvlarini aniq ko'rsatish uchun yengil qoraytirgich */
     body::after {
@@ -917,16 +918,15 @@ header {
         color: rgba(255, 255, 255, 0.88);
         font-size: 13px;
         padding: 0 16px;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+        z-index: 2; ➔ z-index: 9999;
         z-index: 2;
         pointer-events: none;
-</style>
-<div class="tu-clock-wrap" style="position:fixed; top:14%; left:0; right:0; z-index:5; pointer-events:none;">
+     
+<div class="tu-clock-wrap" style="position:fixed; top:14%; left:0; right:0; z-index:9999; pointer-events:none;">
     <div class="tu-clock" id="tuClock">09:30</div>
     <div class="tu-date" id="tuDate"></div>
     <div class="tu-greeting" id="tuGreeting">Xayrli tong, Tohirjon!</div>
 </div>
-
 <div class="tu-shortcuts" style="position:fixed; bottom:14%; left:0; right:0; z-index:5;">
     <a href="https://youtube.com" class="tu-shortcut-item">
         <div class="tu-shortcut-icon"><i class="fab fa-youtube" style="color:#ff4d4d;"></i></div>
