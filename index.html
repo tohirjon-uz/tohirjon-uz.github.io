@@ -920,12 +920,11 @@ header {
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
         z-index: 2;
         pointer-events: none;
-    }
 </style>
-
 <script>
 (function() {
-    const searchBox = document.querySelector('.search-box');
+    const searchInput = document.querySelector('input[type="text"], input:not([type="file"])');
+const searchBox = searchInput ? searchInput.parentElement : null;
     if (!searchBox) return;
 
     // 1. Qidiruv qutisidan tepaga Soat va Salomlashuvni qo'shish
